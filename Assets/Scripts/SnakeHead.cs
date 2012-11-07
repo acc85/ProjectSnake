@@ -17,10 +17,10 @@ public class SnakeHead : MonoBehaviour {
 		currentPosition = transform.position;
 		currentObject = new GameObject();
 		targets = new List<Vector3>();
-		targets.Add(new Vector3(currentPosition.x + 8.0f, currentPosition.y, currentPosition.z+ 8.0f));
-		targets.Add(new Vector3(currentPosition.x - 8.0f, currentPosition.y, currentPosition.z+ 8.0f));
-		targets.Add(new Vector3(currentPosition.x + 8.0f, currentPosition.y, currentPosition.z- 8.0f));
-		targets.Add(new Vector3(currentPosition.x - 8.0f, currentPosition.y, currentPosition.z- 8.0f));
+		targets.Add(new Vector3(currentPosition.x + 8.0f, currentPosition.y+ 8.0f, currentPosition.z));
+		targets.Add(new Vector3(currentPosition.x - 8.0f, currentPosition.y+ 8.0f, currentPosition.z));
+		targets.Add(new Vector3(currentPosition.x + 8.0f, currentPosition.y- 8.0f, currentPosition.z));
+		targets.Add(new Vector3(currentPosition.x - 8.0f, currentPosition.y- 8.0f, currentPosition.z));
 		
 		currentIndex = 0;
 		currentTarget = targets[currentIndex];
@@ -44,12 +44,12 @@ public class SnakeHead : MonoBehaviour {
 
 		if (Vector3.Distance(currentPosition, currentTarget) > 1) {
 		
-			Vector2 directionVector = new Vector2(currentTarget.x - currentPosition.x, currentTarget.z - currentPosition.z);
+			Vector2 directionVector = new Vector2(currentTarget.x - currentPosition.x, currentTarget.y - currentPosition.y);
 			
 			float x = currentPosition.x + (directionVector.x * speed * Time.deltaTime);
-			float z = currentPosition.z + (directionVector.y * speed * Time.deltaTime);
+			float y = currentPosition.y + (directionVector.y * speed * Time.deltaTime);
 			
-			Vector3 newPosition = new Vector3(x, currentPosition.y, z);
+			Vector3 newPosition = new Vector3(x, y, currentPosition.z);
 			
 			transform.position = newPosition;
 			
@@ -60,6 +60,7 @@ public class SnakeHead : MonoBehaviour {
 		else 
 		{
 			DestroyObject(currentObject);
+			randomDrop.cubeObjects.Remove(currentObject);
 			if (currentIndex == (targets.Count - 1)) 
 			{
 				currentIndex = 0;

@@ -22,12 +22,12 @@ public class SnakePart : MonoBehaviour {
 	
 		if (Vector3.Distance(currentPosition, currentTarget) > 1) {
 			
-			Vector2 directionVector = new Vector2(currentTarget.x - currentPosition.x, currentTarget.z - currentPosition.z);
+			Vector2 directionVector = new Vector2(currentTarget.x - currentPosition.x, currentTarget.y - currentPosition.y);
 			
 			float x = currentPosition.x + (directionVector.x * speed * Time.deltaTime);
-			float z = currentPosition.z + (directionVector.y * speed * Time.deltaTime);
+			float y = currentPosition.y + (directionVector.y * speed * Time.deltaTime);
 			
-			Vector3 newPosition = new Vector3(x, currentPosition.y, z);
+			Vector3 newPosition = new Vector3(x, y, currentPosition.z);
 			
 			transform.position = newPosition;	
 		}
